@@ -1,15 +1,15 @@
-name: Docker Build Image
+name: Docker Build & Push
 
 on:
-  workflow_run:
-    workflows: ["Python Test Workflow"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,4 +22,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t my-python-app:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-python-app:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-python-app:latest
