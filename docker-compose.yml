@@ -19,6 +19,7 @@ services:
     container_name: demo-app
     ports:
       - "8080:80"
+
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
@@ -34,6 +35,7 @@ services:
       - '--path.procfs=/host/proc'
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+
   alertmanager:
     image: prom/alertmanager
     container_name: alertmanager
@@ -43,6 +45,7 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
     networks:
       - monitoring
+
   loki:
     image: grafana/loki:2.9.0
     container_name: loki
@@ -61,3 +64,7 @@ services:
     networks:
       - monitoring
     command: -config.file=/etc/promtail/config.yml
+
+networks:
+  monitoring:
+    driver: bridge
