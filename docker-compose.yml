@@ -35,9 +35,9 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
     alertmanager:
-    image: prom/alertmanager
-    container_name: alertmanager
-    ports:
-      - "9093:9093"
-    networks:
-      - monitoring
+      image: prom/alertmanager
+      container_name: alertmanager
+      ports:
+        - "9093:9093"
+      networks:
+        - monitoring
