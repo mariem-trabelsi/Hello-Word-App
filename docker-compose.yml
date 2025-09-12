@@ -43,3 +43,21 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
     networks:
       - monitoring
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    networks:
+      - monitoring
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: promtail
+    volumes:
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    networks:
+      - monitoring
+    command: -config.file=/etc/promtail/config.yml
