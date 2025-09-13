@@ -15,7 +15,7 @@ services:
       - "3000:3000"
 
   app:
-    image: nginx
+    image:  meriem12345/my-python-app
     container_name: my-app-python
     ports:
       - "8080:80"
