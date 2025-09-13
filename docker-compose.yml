@@ -16,7 +16,7 @@ services:
 
   app:
     image: nginx
-    container_name: demo-app
+    container_name: my-app-python
     ports:
       - "8080:80"
 
